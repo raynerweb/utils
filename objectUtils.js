@@ -1,7 +1,7 @@
-(function(){
+var objectUtils = (function(){
     'use strict';
 
-    var ObjectUtils = {
+    var objectUtils = {
         isEmpty : function(object){
             return this.isUndefined(object)
                 || this.isEmptyString(object)
@@ -66,9 +66,8 @@
     };
 
     if (typeof module !== 'undefined' && module.exports) {
-        module.exports = ObjectUtils;
+        module.exports = objectUtils;
+    } else {
+        return objectUtils;
     }
-    //return this;
 })();
-
-// module.exports = ObjectUtils;
