@@ -1,76 +1,74 @@
-var ObjectUtils = {
-    // isEmpty : function(object){
-    //     if (this.isUndefined(object)){
-    //         console.log('isUndefined');
-    //         return true;
-    //     }
-    //     if (this.isEmptyString(object)){
-    //         console.log('isEmptyString');
-    //         return true;
-    //     }
-    //     if (this.isNumber(object)){
-    //         console.log('isNumber');
-    //         return object == 0 || object <=0;
-    //     }
-    //     if (this.isArray(object)){
-    //         console.log('isArray');
-    //         return !this.hasElements(object);
-    //     }
-    //     if (this.isObject(object)){
-    //         console.log('isObject');
-    //         return true;
-    //     }
-    //     if (this.isFunction(object)){
-    //         console.log('isFunction');
-    //         return true;
-    //     }
-    // },
-    isUndefined : function(object){
-        return object == undefined;
-    },
-    isNumber : function(object) {
-        if (this.isUndefined(object)){
+(function(){
+    'use strict';
+
+    var ObjectUtils = {
+        isEmpty : function(object){
+            return this.isUndefined(object)
+                || this.isEmptyString(object)
+                || this.isZero(object)
+                || this.isFunction(object)
+                || !this.hasElements(object);
+        },
+        isUndefined : function(object){
+            return object == undefined;
+        },
+        isNumber : function(object) {
+            if (this.isUndefined(object)){
+                return false;
+            }
+            return !this.isObjectOrArray(object) && typeof object == 'number' && !isNaN(object);
+        },
+        isNumeric : function(object){
+            if (this.isUndefined(object)){
+                return false;
+            }
+            return !this.isObjectOrArray(object) && !isNaN(parseInt(object, 10));
+        },
+        isZero : function(object){
+            return this.isNumber(object) && object == 0;
+        },
+        isEmptyString : function(object){
+            return this.isString(object) && "" == object.trim();
+        },
+        isString : function(object){
+            if (this.isUndefined(object)){
+                return false;
+            }
+            return typeof object == "string";
+        },
+        isFunction : function(object){
+            if (this.isUndefined(object)){
+                return false;
+            }
+            return typeof object == "function";
+        },
+        isObjectOrArray : function(object){
+            if (this.isUndefined(object)){
+                return false;
+            }
+            return typeof object == 'object';
+        },
+        hasElements : function(object){
+            if (this.isArray(object) || this.isObject(object) || this.isString(object)){
+                object = this.isString(object) ? object.trim() : object;
+                for(var idx in object){
+                    return true;
+                }
+            }
             return false;
+        },
+        isArray : function(object){
+            return this.isObjectOrArray(object) && JSON.stringify(object).indexOf('[') > -1;
+        },
+        isObject : function(object){
+            return this.isObjectOrArray(object) && JSON.stringify(object).indexOf('{') > -1;
         }
-        return typeof object == 'number' && !isNaN(object);
-    },
-    isNumeric : function(object){
-        if (this.isUndefined(object)){
-            return false;
-        }
-        return !isNaN(parseInt(object, 10));
-    },
-    isZero : function(object){
-        return this.isNumber(object) && object == 0;
-    },
-    isEmptyString : function(object){
-        return this.isString(object) && "" == object.trim();
-    },
-    isString : function(object){
-        if (this.isUndefined(object)){
-            return false;
-        }
-        return typeof object == "string";
-    },
-    isFunction : function(object){
-        if (this.isUndefined(object)){
-            return false;
-        }
-        return typeof object == "function";
-    },
-    isObjectOrArray : function(object){
-        if (this.isUndefined(object)){
-            return false;
-        }
-        return typeof object == 'object';
-    },
-    // hasElements : function(object){
-    //     return this.isObjectOrArray(object) && object.length > 0;
-    // },
-    isArray : function(object){
-        return this.isObjectOrArray(object) && JSON.stringify(object).indexOf('[') > -1;
-    },
-    isObject : function(object){
-        return this.isObjectOrArray(object) && JSON.stringify(object).indexOf('{') > -1;
+    };
+
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = ObjectUtils;
     }
-};
+    //return this;
+})();
+
+// module.exports = ObjectUtils;

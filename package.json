@@ -2,10 +2,10 @@
   "name": "utils",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "raynerweb@gmail.com",
+  "license": "http://www.apache.org/licenses/LICENSE-2.0"
 }
