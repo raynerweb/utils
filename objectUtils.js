@@ -9,6 +9,9 @@ var objectUtils = (function(){
                 || this.isFunction(object)
                 || !this.hasElements(object);
         },
+        isBoolean : function(object){
+          return object === true || object === false;
+        },
         isUndefined : function(object){
             return object == undefined;
         },
